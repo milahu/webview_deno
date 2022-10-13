@@ -2,8 +2,11 @@ import { dlopen, download } from "../deps.ts";
 import { Webview } from "./webview.ts";
 
 const version = "0.7.3";
-const cache = Deno.env.get("PLUGIN_URL") === undefined ? "use" : "reloadAll";
-const url = Deno.env.get("PLUGIN_URL") ??
+// https://github.com/webview/webview_deno/issues/145
+// rename env PLUGIN_URL
+const envNameLibwebview = "WEBVIEW_DENO_LIBWEBVIEW";
+const cache = Deno.env.get(envNameLibwebview) === undefined ? "use" : "reloadAll";
+const url = Deno.env.get(envNameLibwebview) ??
   `https://github.com/webview/webview_deno/releases/download/${version}/`;
 
 const encoder = new TextEncoder();
